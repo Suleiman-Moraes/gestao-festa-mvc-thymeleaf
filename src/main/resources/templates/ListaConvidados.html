@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Convidados</title>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="card" style="margin: 10px">
+        <div class="card-header">
+            <h4><strong>Lista de convidados</strong></h4>
+        </div>
+        <div class="card-body">
+
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" th:object="${convidado}" th:action="@{/convidados}">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="nome" class="ml-1">Nome</label>
+                                <input type="text" class="form-control" id="nome" th:field="*{nome}"
+                                    placeholder="Nome" />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="quantidadeAcompanhantes" class="ml-1">Acompanhantes</label>
+                                <input type="number" class="form-control" id="quantidadeAcompanhantes"
+                                    placeholder="Acompanhantes" th:field="*{quantidadeAcompanhantes}" />
+                            </div>
+                            <div class="form-group col-md-2" style="padding-top: 8px;margin-top: 1px;">
+                                <button type="submit" class="btn btn-success mt-4">Adicionar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Acompanhantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="convidado : ${convidados}">
+                            <td th:text="${(convidado.id < 10 ? '0' + convidado.id : convidado.id)}"></td>
+                            <td th:text="${convidado.nome}"></td>
+                            <td th:text="${convidado.quantidadeAcompanhantes}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
